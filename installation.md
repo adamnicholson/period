@@ -24,6 +24,7 @@ You can also use `Period` without using Composer by downloading the library and 
 Starting with version 3.2. `Period` comes bundle with its own autoloader you can call as shown below:
 
 ~~~php
+<?php
 
 require 'path/to/league/repo/autoload.php';
 

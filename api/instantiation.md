@@ -68,6 +68,8 @@ $alt    = Period::createFromDay('2012-04-01');
 $alt->sameValueAs($period); //return true;
 ~~~
 
+<p class="message-warning">Because of a <a href="https://github.com/facebook/hhvm/issues/7237" target="_blank">bug in HHVM</a>, when using <code>createFromDay</code>, the timezone information is lost.</p>
+
 ### Create a new instance representing a given week
 
 #### Description
@@ -231,3 +233,22 @@ $period = Period::createFromDuration('2012-04-01 08:30:25', '1 DAY');
 $alt    = Period::createFromDurationBeforeEnd('2012-04-02 08:30:25', new DateInterval('P1D'));
 $alt->sameValueAs($period); //returns true
 ~~~
+
+### Using __set_state
+
+<p class="message-notice">Since <code>version 3.2</code></p>
+
+PHP’s magic method `__set_state` is now supported.
+
+~~~php
+<?php
+
+use League\Period\Period;
+
+$period = Period::createFromDuration('2012-04-01 08:30:25', '1 DAY');
+$alt = eval('return '.var_export($period, true).';');
+
+$alt->sameValueAs($period); //returns true
+~~~
+
+<p class="message-warning">Because of a <a href="https://github.com/facebook/hhvm/issues/7235" target="_blank">bug in HHVM</a>, This method is not supported in HHVM.</p>
